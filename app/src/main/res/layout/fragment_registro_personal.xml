@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Fondo Violeta Superior -->
         <View
             android:id="@+id/view_header_bg"
             android:layout_width="0dp"
@@ -22,7 +21,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Botón Volver -->
         <ImageView
             android:id="@+id/iv_back_personal"
             android:layout_width="24dp"
@@ -35,7 +33,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="#FFFFFF" />
 
-        <!-- Logo -->
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="32dp"
@@ -72,7 +69,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
-        <!-- Campos de entrada -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_name"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -82,6 +78,8 @@
             android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:hint="Nombre:"
+            app:boxStrokeColor="#9C27B0"
+            app:hintTextColor="#9C27B0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_header_bg">
@@ -89,7 +87,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="#212121" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -101,6 +100,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="Apellidos:"
+            app:boxStrokeColor="#9C27B0"
+            app:hintTextColor="#9C27B0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_name">
@@ -108,7 +109,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPersonName" />
+                android:inputType="textPersonName"
+                android:textColor="#212121" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -120,6 +122,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="Nombre de usuario:"
+            app:boxStrokeColor="#9C27B0"
+            app:hintTextColor="#9C27B0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_lastname">
@@ -127,7 +131,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text" />
+                android:inputType="text"
+                android:textColor="#212121" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -139,6 +144,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="Teléfono:"
+            app:boxStrokeColor="#9C27B0"
+            app:hintTextColor="#9C27B0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_username">
@@ -146,7 +153,8 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="phone" />
+                android:inputType="phone"
+                android:textColor="#212121" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -158,6 +166,8 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:hint="Fecha de nacimiento:"
+            app:boxStrokeColor="#9C27B0"
+            app:hintTextColor="#9C27B0"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_phone">
@@ -165,23 +175,23 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="date" />
+                android:inputType="date"
+                android:textColor="#212121" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón Guardar -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_save_personal"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="56dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="32dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="32dp"
-            android:text="Guardar"
+            android:text="Guardar Información"
             android:textAllCaps="false"
-            android:textSize="10sp"
+            android:textSize="16sp"
             app:backgroundTint="#9C27B0"
-            app:cornerRadius="28dp"
+            app:cornerRadius="12dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

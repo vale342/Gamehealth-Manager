@@ -9,7 +9,11 @@
         android:id="@+id/registerFragment2"
         android:name="com.example.gamehealthmanager.RegisterFragment"
         android:label="fragment_register2"
-        tools:layout="@layout/fragment_register" />
+        tools:layout="@layout/fragment_register" >
+        <action
+            android:id="@+id/action_registerFragment2_to_fragment_registroPersonal"
+            app:destination="@id/fragment_registroPersonal" />
+    </fragment>
     <fragment
         android:id="@+id/loginFragment"
         android:name="com.example.gamehealthmanager.LoginFragment"
@@ -18,6 +22,9 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment2"
             app:destination="@id/registerFragment2" />
+        <action
+            android:id="@+id/action_loginFragment_to_fragment_recuperarContra"
+            app:destination="@id/fragment_recuperarContra" />
     </fragment>
     <fragment
         android:id="@+id/fragment_recuperarContra"
