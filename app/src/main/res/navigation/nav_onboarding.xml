@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_onboarding"
+    app:startDestination="@id/loginFragment">
+
+    <fragment
+        android:id="@+id/registerFragment2"
+        android:name="com.example.gamehealthmanager.RegisterFragment"
+        android:label="fragment_register2"
+        tools:layout="@layout/fragment_register" />
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.gamehealthmanager.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_registerFragment2"
+            app:destination="@id/registerFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/fragment_recuperarContra"
+        android:name="com.example.gamehealthmanager.fragment_recuperarContra"
+        android:label="fragment_recuperar_contra"
+        tools:layout="@layout/fragment_recuperar_contra" />
+    <fragment
+        android:id="@+id/fragment_registroPersonal"
+        android:name="com.example.gamehealthmanager.fragment_registroPersonal"
+        android:label="fragment_registro_personal"
+        tools:layout="@layout/fragment_registro_personal" />
+</navigation>
