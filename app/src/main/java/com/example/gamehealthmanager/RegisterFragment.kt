@@ -25,4 +25,23 @@ class RegisterFragment : Fragment() {
 
         return binding.root
     }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        // 1. Ir a la siguiente pantalla (Información Personal)
+        binding.btnRegister.setOnClickListener {
+            findNavController().navigate(R.id.action_registerFragment2_to_fragment_registroPersonal)
+        }
+
+        // 2. Regresar al Login (Asegúrate de tener un botón o flecha de volver en el XML)
+        binding.ivBack.setOnClickListener {
+            findNavController().popBackStack()
+        }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
