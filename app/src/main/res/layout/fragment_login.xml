@@ -58,6 +58,7 @@
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
         <!-- Campos de entrada -->
+        <!-- Correo -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_user"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -77,6 +78,7 @@
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <!-- Contraseña -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_pass"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -100,13 +102,13 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_login"
             android:layout_width="0dp"
-            android:layout_height="32dp"
+            android:layout_height="48dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:text="Ingresar"
             android:textAllCaps="false"
-            android:textSize="8sp"
+            android:textSize="16sp"
             app:backgroundTint="#9C27B0"
             app:cornerRadius="28dp"
             app:layout_constraintEnd_toEndOf="parent"

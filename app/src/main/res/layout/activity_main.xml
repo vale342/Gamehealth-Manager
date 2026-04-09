@@ -17,6 +17,7 @@
         app:layout_constraintEnd_toEndOf="@+id/main"
         app:layout_constraintStart_toStartOf="@+id/main"
         app:layout_constraintTop_toTopOf="@+id/main"
-        app:navGraph="@navigation/nav_onboarding" />
+        app:navGraph="@navigation/nav_onboarding"
+        app:defaultNavHost="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
