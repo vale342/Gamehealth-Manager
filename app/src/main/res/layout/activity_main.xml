@@ -8,6 +8,7 @@
     android:background="#C59BFF"
     tools:context=".MainActivity">
 
+    <!-- Es un componente diseñado para alojar y mostrar Fragmentos -->
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"

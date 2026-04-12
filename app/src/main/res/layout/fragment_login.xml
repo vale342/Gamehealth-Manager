@@ -7,12 +7,14 @@
     android:fillViewport="true"
     android:background="#FFFFFF"
     tools:context=".LoginFragment">
+    <!-- Vincula este diseño con la clase Kotlin LoginFragment -->
 
+    <!-- El contenedor principal donde los elementos se posicionan unos a otros -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Fondo Violeta Superior -->
+        <!-- Crea el rectángulo de color violeta de la parte superior -->
         <View
             android:id="@+id/view_header_bg"
             android:layout_width="0dp"
@@ -22,6 +24,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Muestra el icono de la aplicación en la esquina superior -->
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="32dp"
@@ -32,6 +35,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <!-- Título principal de bienvenida -->
         <TextView
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
@@ -45,6 +49,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_logo" />
 
+        <!-- Subtítulo con instrucciones para el usuario -->
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
@@ -57,8 +62,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
-        <!-- Campos de entrada -->
-        <!-- Correo -->
+        <!-- Contenedor del campo de correo con etiqueta flotante -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/til_user"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
@@ -72,6 +76,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_header_bg">
 
+            <!-- Caja de texto donde el usuario escribe su correo -->
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -93,6 +98,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_user">
 
+            <!-- Caja de texto que oculta los caracteres de la contraseña -->
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -114,7 +120,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/til_pass" />
 
-        <!-- Footer -->
+        <!-- Enlace interactivo para ir a la pantalla de registro -->
         <TextView
             android:id="@+id/tv_register_action2"
             android:layout_width="wrap_content"
@@ -128,6 +134,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 
+        <!-- Enlace interactivo para recuperar la contraseña olvidada -->
         <TextView
             android:id="@+id/tv_register_action"
             android:layout_width="wrap_content"

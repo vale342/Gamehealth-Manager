@@ -4,10 +4,10 @@
         <item name="android:textAllCaps">false</item>
         <item name="cornerRadius">12dp</item>
 
-        <!--Color fondo-->
+        <!--Color fondo boton-->
         <item name="backgroundTint">@color/button_background</item>
 
-        <!--Color texto-->
+        <!--Color texto boton-->
         <item name="android:textColor">@color/button_textbackground</item>
         <item name="android:textSize">20sp</item>
         <item name="android:textStyle">bold</item>
