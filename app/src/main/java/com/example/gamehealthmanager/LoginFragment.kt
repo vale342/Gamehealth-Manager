@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener // Permite escuchar cambios en el texto en tiempo real
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController // Necesario para movernos entre fragmentos
 import com.example.gamehealthmanager.databinding.FragmentLoginBinding // Clase generada para acceder a las vistas del XML
 
@@ -18,6 +19,8 @@ class LoginFragment : Fragment() {
     // binding: Propiedad de solo lectura que garantiza que _binding no sea nulo mediante "!!".
     // Se usa para acceder a los componentes del XML sin usar findViewById.
     private val binding get() = _binding!!
+    //Esto hace que enlace entre biding y el XML sea data al viewModel
+    private val viewModel by viewModels<SignInViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
