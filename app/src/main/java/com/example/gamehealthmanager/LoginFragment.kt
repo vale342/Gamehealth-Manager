@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.widget.addTextChangedListener // Permite escuchar cambios en el texto en tiempo real
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController // Necesario para movernos entre fragmentos
+import com.example.gamehealthmanager.core.FragmentCommunicator
 import com.example.gamehealthmanager.databinding.FragmentLoginBinding // Clase generada para acceder a las vistas del XML
 
 class LoginFragment : Fragment() {
@@ -21,6 +22,8 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
     //Esto hace que enlace entre biding y el XML sea data al viewModel
     private val viewModel by viewModels<SignInViewModel>()
+    //Definimos la interfaz FragmentCommunicator
+    private lateinit var communicator: FragmentCommunicator
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,9 +31,14 @@ class LoginFragment : Fragment() {
     ): View {
         // Inflamos el diseño del fragmento y lo asignamos al binding
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
+        // Configuramos el botón de inicio de sesión
+        //Regresará la actividad (mainActivity) que contenga el fragmento
+        communicator = requireActivity() as FragmentCommunicator
 
         // Inicializamos la lógica de validación de los campos
         setupValidation()
+        //
+        communicator.manageLoader(isVisible=true)
 
         // Configuramos la navegación al presionar "Registrarse"
         binding.tvRegisterAction2.setOnClickListener {
