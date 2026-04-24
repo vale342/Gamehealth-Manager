@@ -37,8 +37,8 @@ class LoginFragment : Fragment() {
 
         // Inicializamos la lógica de validación de los campos
         setupValidation()
-        //
-        communicator.manageLoader(isVisible=true)
+
+        //communicator.manageLoader(isVisible=true)
 
         // Configuramos la navegación al presionar "Registrarse"
         binding.tvRegisterAction2.setOnClickListener {
@@ -48,6 +48,10 @@ class LoginFragment : Fragment() {
         // Configuramos la navegación al presionar "Recuperar contraseña"
         binding.tvRegisterAction.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_fragment_recuperarContra)
+        }
+
+        binding.tilUser.setOnClickListener{
+            findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
         }
 
         // Retornamos la vista raíz del diseño inflado

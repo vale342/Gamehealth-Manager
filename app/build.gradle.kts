@@ -57,4 +57,6 @@ dependencies {
     implementation(libs.firebase.analytics)
     implementation(libs.firebase.auth)      // Si vas a usar Login
     implementation(libs.firebase.firestore) // Si vas a guardar datos de salud
+    implementation(libs.coroutines.core)
+    implementation(libs.coroutines.android)
 }
