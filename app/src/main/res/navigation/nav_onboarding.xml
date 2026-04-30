@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment2"
-        android:name="com.example.gamehealthmanager.RegisterFragment"
+        android:name="com.example.gamehealthmanager.signup.RegisterFragment"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register" >
         <action
@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.gamehealthmanager.LoginFragment"
+        android:name="com.example.gamehealthmanager.login.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action

@@ -6,15 +6,13 @@
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="#FFFFFF"
-    tools:context=".LoginFragment">
-    <!-- Vincula este diseño con la clase Kotlin LoginFragment -->
+    tools:context=".login.LoginFragment">
 
-    <!-- El contenedor principal donde los elementos se posicionan unos a otros -->
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Crea el rectángulo de color violeta de la parte superior -->
+        <!-- Fondo decorativo superior -->
         <View
             android:id="@+id/view_header_bg"
             android:layout_width="0dp"
@@ -24,7 +22,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Muestra el icono de la aplicación en la esquina superior -->
+        <!-- Logo de GameHealth -->
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="32dp"
@@ -35,7 +33,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Título principal de bienvenida -->
         <TextView
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
@@ -49,7 +46,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/iv_logo" />
 
-        <!-- Subtítulo con instrucciones para el usuario -->
         <TextView
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
@@ -62,9 +58,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
-        <!-- Contenedor del campo de correo con etiqueta flotante -->
+        <!-- Campo de Correo -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_user"
+            android:id="@+id/emailTil"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -76,16 +72,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_header_bg">
 
-            <!-- Caja de texto donde el usuario escribe su correo -->
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/emailTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Contraseña -->
+        <!-- Campo de Contraseña -->
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_pass"
+            android:id="@+id/passwordTil"
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -96,57 +92,45 @@
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_user">
+            app:layout_constraintTop_toBottomOf="@id/emailTil">
 
-            <!-- Caja de texto que oculta los caracteres de la contraseña -->
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/passwordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón de inicio de sesión con su style creado en clase -->
+        <!-- Botón de Ingreso -->
         <com.google.android.material.button.MaterialButton
-            style="@style/MainButton"
-            android:id="@+id/btn_login"
+            android:id="@+id/signInButton"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="56dp"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:text="Ingresar"
             android:textAllCaps="false"
+            android:textSize="16sp"
+            app:backgroundTint="#9C27B0"
+            app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/til_pass" />
+            app:layout_constraintTop_toBottomOf="@id/passwordTil" />
 
-        <!-- Enlace interactivo para ir a la pantalla de registro -->
+        <!-- Acción de Registro -->
         <TextView
-            android:id="@+id/tv_register_action2"
+            android:id="@+id/registerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="24dp"
             android:padding="8dp"
-            android:text="Registrarse"
+            android:text="¿No tienes cuenta? Regístrate"
             android:textColor="#9C27B0"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <!-- Enlace interactivo para recuperar la contraseña olvidada -->
-        <TextView
-            android:id="@+id/tv_register_action"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:padding="8dp"
-            android:text="Recuperar contraseña"
-            android:textColor="#9C27B0"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/signInButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

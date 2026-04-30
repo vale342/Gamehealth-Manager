@@ -3,7 +3,6 @@ package com.example.gamehealthmanager
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isVisible
@@ -14,7 +13,6 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
     private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -27,9 +25,7 @@ class MainActivity : AppCompatActivity(), FragmentCommunicator {
         }
     }
 
-    //Implementacion del metodo, el fragmento ejecutara esta clausula
     override fun manageLoader(isVisible: Boolean) {
         binding.loaderView.isVisible = isVisible
-
     }
 }
