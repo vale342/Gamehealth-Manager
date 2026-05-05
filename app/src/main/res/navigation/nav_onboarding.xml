@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/registerFragment2"
-        android:name="com.example.gamehealthmanager.signup.RegisterFragment"
+        android:name="com.example.gamehealthmanager.onboarding.signup.RegisterFragment"
         android:label="fragment_register2"
         tools:layout="@layout/fragment_register" >
         <action

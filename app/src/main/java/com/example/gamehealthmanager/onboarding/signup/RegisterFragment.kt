@@ -1,4 +1,4 @@
-package com.example.gamehealthmanager.signup
+package com.example.gamehealthmanager.onboarding.signup
 
 import android.os.Bundle
 import android.view.LayoutInflater

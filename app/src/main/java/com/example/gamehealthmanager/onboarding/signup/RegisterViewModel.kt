@@ -1,4 +1,4 @@
-package com.example.gamehealthmanager.signup
+package com.example.gamehealthmanager.onboarding.signup
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
