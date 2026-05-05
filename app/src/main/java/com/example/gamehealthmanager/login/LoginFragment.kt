@@ -1,5 +1,6 @@
 package com.example.gamehealthmanager.login
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -16,6 +17,7 @@ import com.example.gamehealthmanager.login.SignInViewModel
 import com.example.gamehealthmanager.core.FragmentCommunicator
 import com.example.gamehealthmanager.core.ResponseService
 import com.example.gamehealthmanager.databinding.FragmentLoginBinding
+import com.example.gamehealthmanager.home.HomeActivity
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
@@ -83,6 +85,9 @@ class LoginFragment : Fragment() {
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
                             // Navegación exitosa aquí
+                            val intent = Intent(requireContext(), HomeActivity::class.java)
+                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                            startActivity(intent)
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
