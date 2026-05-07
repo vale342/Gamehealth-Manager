@@ -1,4 +1,4 @@
-package com.example.gamehealthmanager.login
+package com.example.gamehealthmanager.onboarding.signin
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,52 +13,49 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.findNavController
 import com.example.gamehealthmanager.R
-import com.example.gamehealthmanager.login.SignInViewModel
 import com.example.gamehealthmanager.core.FragmentCommunicator
 import com.example.gamehealthmanager.core.ResponseService
 import com.example.gamehealthmanager.databinding.FragmentLoginBinding
 import com.example.gamehealthmanager.home.HomeActivity
+import com.example.gamehealthmanager.onboarding.signin.SignInViewModel
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
-
-    // Asegúrate de que el ViewModel esté bien importado
     private val viewModel by viewModels<SignInViewModel>()
     private lateinit var communicator: FragmentCommunicator
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
+        // Inflate the layout for this fragment
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
         communicator = requireActivity() as FragmentCommunicator
-
         setupValidation()
         setupClickListeners()
         observeState()
-
         return binding.root
     }
-
     private fun setupValidation() {
         binding.signInButton.isEnabled = false
-
         binding.emailTiet.addTextChangedListener { validateAndEnable() }
         binding.passwordTiet.addTextChangedListener { validateAndEnable() }
     }
 
     private fun validateAndEnable() {
         val email = binding.emailTiet.text.toString().trim()
-        val pass = binding.passwordTiet.text.toString().trim()
+        val password = binding.passwordTiet.text.toString().trim()
 
         binding.emailTil.error = viewModel.validateEmail(email)
-        binding.passwordTil.error = viewModel.validatePassword(pass)
-
-        // IMPORTANTE: Cambiado a validación de LOGIN, no de Registro
-        binding.signInButton.isEnabled = viewModel.isLoginFormValid(email, pass)
+        binding.passwordTil.error = viewModel.validatePassword(password)
+        binding.signInButton.isEnabled = viewModel.isLoginFormValid(email, password)
     }
 
     private fun setupClickListeners() {
@@ -67,15 +64,15 @@ class LoginFragment : Fragment() {
             val password = binding.passwordTiet.text.toString().trim()
             viewModel.requestLogin(email, password)
         }
-
         binding.registerText.setOnClickListener {
-            findNavController().navigate(R.id.action_loginFragment_to_registerFragment2)
+            findNavController()
+                .navigate(R.id.action_loginFragment_to_registerFragment)
         }
     }
 
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.signInState.collect { state ->
                     when (state) {
                         is ResponseService.Loading -> {
@@ -84,7 +81,6 @@ class LoginFragment : Fragment() {
                         }
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            // Navegación exitosa aquí
                             val intent = Intent(requireContext(), HomeActivity::class.java)
                             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                             startActivity(intent)
@@ -92,18 +88,13 @@ class LoginFragment : Fragment() {
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
                             binding.signInButton.isEnabled = true
-                            // Usamos state.error (verifica si es .error o .message en tu clase core)
-                            Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
+                            Snackbar.make(binding.root, state.error,
+                                Snackbar.LENGTH_LONG).show()
                         }
                         null -> Unit
                     }
                 }
             }
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }

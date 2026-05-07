@@ -1,4 +1,4 @@
-package com.example.gamehealthmanager.login
+package com.example.gamehealthmanager.onboarding.signin
 
 import android.util.Patterns
 import androidx.lifecycle.ViewModel

@@ -6,34 +6,26 @@
     app:startDestination="@id/loginFragment">
 
     <fragment
-        android:id="@+id/registerFragment2"
+        android:id="@+id/registerFragment"
         android:name="com.example.gamehealthmanager.onboarding.signup.RegisterFragment"
-        android:label="fragment_register2"
+        android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment2_to_fragment_registroPersonal"
-            app:destination="@id/fragment_registroPersonal" />
+            android:id="@+id/action_register_to_personalInfoFragment"
+            app:destination="@id/personalInfoFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
-        android:name="com.example.gamehealthmanager.login.LoginFragment"
+        android:name="com.example.gamehealthmanager.onboarding.signin.LoginFragment"
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_registerFragment2"
-            app:destination="@id/registerFragment2" />
-        <action
-            android:id="@+id/action_loginFragment_to_fragment_recuperarContra"
-            app:destination="@id/fragment_recuperarContra" />
+            android:id="@+id/action_loginFragment_to_registerFragment"
+            app:destination="@id/registerFragment" />
     </fragment>
     <fragment
-        android:id="@+id/fragment_recuperarContra"
-        android:name="com.example.gamehealthmanager.fragment_recuperarContra"
-        android:label="fragment_recuperar_contra"
-        tools:layout="@layout/fragment_recuperar_contra" />
-    <fragment
-        android:id="@+id/fragment_registroPersonal"
-        android:name="com.example.gamehealthmanager.fragment_registroPersonal"
-        android:label="fragment_registro_personal"
-        tools:layout="@layout/fragment_registro_personal" />
+        android:id="@+id/personalInfoFragment"
+        android:name="com.example.gamehealthmanager.onboarding.personal.PersonalInfoFragment"
+        android:label="fragment_personal_info"
+        tools:layout="@layout/fragment_personal_info" />
 </navigation>

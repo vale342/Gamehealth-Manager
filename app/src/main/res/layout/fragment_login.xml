@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
     android:background="#FFFFFF"
-    tools:context=".login.LoginFragment">
+    tools:context=".onboarding.signin.LoginFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!-- Fondo decorativo superior -->
         <View
             android:id="@+id/view_header_bg"
             android:layout_width="0dp"
@@ -22,13 +22,12 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <!-- Logo de GameHealth -->
         <ImageView
             android:id="@+id/iv_logo"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
             android:src="@mipmap/ic_launcher"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -37,7 +36,7 @@
             android:id="@+id/tv_welcome"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
             android:text="¡Bienvenido!"
             android:textColor="#FFFFFF"
@@ -50,7 +49,7 @@
             android:id="@+id/tv_subtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:text="Inicia sesión para continuar"
             android:textColor="#FFFFFF"
@@ -58,37 +57,36 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_welcome" />
 
-        <!-- Campo de Correo -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/emailTil"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/passwordTil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Correo:"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
+            android:hint="Correo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/view_header_bg">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/emailTiet"
+                style="@style/passwordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Campo de Contraseña -->
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/passwordTil"
-            style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+            style="@style/passwordTil"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:hint="Contraseña:"
+            android:layout_marginEnd="24dp"
+            android:hint="Contraseña"
             app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -96,41 +94,53 @@
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/passwordTiet"
+                style="@style/passwordTiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Botón de Ingreso -->
+        <TextView
+            android:id="@+id/restorePasswordText"
+            style="@style/signInLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="@string/restorePassword"
+            android:textColor="#757575"
+            app:layout_constraintEnd_toEndOf="@+id/passwordTil"
+            app:layout_constraintTop_toBottomOf="@+id/passwordTil" />
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/signInButton"
+            style="@style/signUpButton"
             android:layout_width="0dp"
             android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="24dp"
             android:text="Ingresar"
-            android:textAllCaps="false"
             android:textSize="16sp"
             app:backgroundTint="#9C27B0"
             app:cornerRadius="12dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/passwordTil" />
+            app:layout_constraintTop_toBottomOf="@id/restorePasswordText" />
 
-        <!-- Acción de Registro -->
         <TextView
             android:id="@+id/registerText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:layout_marginBottom="32dp"
             android:padding="8dp"
             android:text="¿No tienes cuenta? Regístrate"
             android:textColor="#9C27B0"
             android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/signInButton" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+</androidx.core.widget.NestedScrollView>

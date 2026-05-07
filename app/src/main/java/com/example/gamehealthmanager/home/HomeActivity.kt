@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.setupWithNavController
 import com.example.gamehealthmanager.R
 import com.example.gamehealthmanager.databinding.ActivityHomeBinding
 
@@ -27,5 +28,6 @@ class HomeActivity : AppCompatActivity() {
     fun setupNavigation(){
         val navHostFragment = supportFragmentManager.findFragmentById(R.id.navHostFragment) as NavHostFragment
         val navController = navHostFragment.navController
-        binding.bottomNavigationView.setupWithNavController(navController)    }
+        binding.bottomNavigationView.setupWithNavController(navController)
+    }
 }
