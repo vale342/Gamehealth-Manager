@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="@+id/main"
         app:layout_constraintTop_toTopOf="@+id/main"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_onboarding"/>
+        app:navGraph="@navigation/nav_home"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
