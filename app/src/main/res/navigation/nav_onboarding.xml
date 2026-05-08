@@ -11,7 +11,7 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_register_to_personalInfoFragment"
+            android:id="@+id/action_registerFragment_to_personalInfoFragment"
             app:destination="@id/personalInfoFragment" />
     </fragment>
     <fragment

@@ -24,7 +24,7 @@
 
         <!-- Botón para volver (registerText en el código del profe) -->
         <ImageView
-            android:id="@+id/registerText"
+            android:id="@+id/bottomReturn"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="16dp"
