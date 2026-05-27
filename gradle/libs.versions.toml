@@ -12,9 +12,11 @@ navigationFragmentKtx = "2.9.7"
 navigationUiKtx = "2.9.7"
 lottie = "6.7.1"
 firebaseBom = "34.12.0"
-googleServices = "4.4.1" # O la versión más reciente
+googleServices = "4.4.1"
 coroutinesCore = "1.7.3"
 activityKtx = "1.13.0"
+retrofit = "2.11.0"
+okhttpLoggin = "4.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -35,6 +37,9 @@ firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore
 coroutines-core = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-core", version.ref = "coroutinesCore"}
 coroutines-android = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "coroutinesCore"}
 androidx-activity-ktx = { group = "androidx.activity", name = "activity-ktx", version.ref = "activityKtx" }
+retrofit = { group = "com.squareup.retrofit2", name = "retrofit", version.ref = "retrofit"}
+retrofit-gson = { group = "com.squareup.retrofit2", name = "converter-gson", version.ref = "retrofit" }
+okhttp-logging = { group = "com.squareup.okhttp3", name = "logging-interceptor", version.ref = "okhttpLoggin" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
