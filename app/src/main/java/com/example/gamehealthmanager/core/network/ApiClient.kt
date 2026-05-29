@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 object ApiClient {
-    private const val BASE_URL = "https://b33bc8b0e2ed4ce094051dfe5a68d6e8.api.mockbin.io/"
+    private const val BASE_URL = "https://www.freetogame.com/api/"
     const val CLIENT_ID = "2712"
 
     private val loggin = HttpLoggingInterceptor().apply {
@@ -23,6 +23,6 @@ object ApiClient {
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(GameApi::class.java)
+            .create(GameAPI::class.java)
     }
 }

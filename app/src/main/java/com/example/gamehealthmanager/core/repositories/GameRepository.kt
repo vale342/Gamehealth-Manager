@@ -12,7 +12,7 @@ class GameRepository : GameService {
     private val api = ApiClient.GameApi
 
     // 1. Añadimos todos los atributos faltantes en la firma de la función
-    override suspend fun getTracks(
+    override suspend fun getGames(
         id: String,
         title: String,
         genre: String,
@@ -23,22 +23,17 @@ class GameRepository : GameService {
     ): ResponseService<List<Game>> =
         withContext(Dispatchers.IO) {
             try {
-                // 2. Pasamos exactamente los 7 parámetros que tu GameAPI está esperando
-                val response = api.getTracks(
-                    id = id,
-                    title = title,
-                    genre = genre,
+                // Corregido: Solo pasamos los parámetros que tu GameAPI declara
+                val response = api.getGames(
                     platform = platform,
-                    imageUrl = imageUrl,
-                    releaseYear = releaseYear,
-                    description = description
+                    genre = genre
                 )
 
                 // Evaluamos la respuesta de Retrofit
                 if (response.isSuccessful) {
                     val body = response.body()
                     if (body != null) {
-                        ResponseService.Success(body.results)
+                        ResponseService.Success(body)
                     } else {
                         ResponseService.Error("Respuesta vacía del servidor")
                     }

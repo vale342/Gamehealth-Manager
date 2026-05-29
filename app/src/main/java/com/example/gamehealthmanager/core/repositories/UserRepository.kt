@@ -10,7 +10,6 @@ import kotlinx.coroutines.withContext
 class UserRepository : UserService {
     private val firestore = FirebaseFirestore.getInstance()
     private val userCollection = firestore.collection("users")
-
     override suspend fun saveUserInfo(userProfile: UserProfile): ResponseService<Unit> = withContext(
         Dispatchers.IO){
         try{

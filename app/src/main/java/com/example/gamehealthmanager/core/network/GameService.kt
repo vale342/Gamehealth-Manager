@@ -4,7 +4,7 @@ import com.example.gamehealthmanager.core.ResponseService
 import com.example.gamehealthmanager.core.model.Game
 
 interface GameService {
-    suspend fun getTracks(
+    suspend fun getGames(
         id: String,
         title: String,
         genre: String,
