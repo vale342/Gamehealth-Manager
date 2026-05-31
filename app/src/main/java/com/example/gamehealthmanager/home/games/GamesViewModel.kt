@@ -29,8 +29,9 @@ class GamesViewModel (
             // CAMBIO 1: Cambiamos .getGames por .getTracks que es el nombre real en tu repositorio
             // CAMBIO 2: Ponemos "all" en platform para que la API real de Free-To-Play sepa qué buscar
             _gameState.value = service.getGames(
-                platform = "all",
+                platform = "pc", // Prueba primero con "pc" para ver si carga
                 genre = "",
+                // ... otros parámetros
                 id = "",
                 title = "",
                 imageUrl = "",

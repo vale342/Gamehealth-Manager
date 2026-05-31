@@ -9,7 +9,7 @@ import retrofit2.http.Query
 interface GameAPI {
     @GET("games")
     suspend fun getGames(
-        @Query("platform") platform: String,  // Filtra por: "pc", "browser" o "all"
-        @Query("category") genre: String      // Filtra por género: "shooter", "anime", "mmorpg", etc.
+        @Query("platform") platform: String,
+        @Query("category") genre: String? = null // <- Cambiado a String? nullable
     ): Response<List<Game>>
 }

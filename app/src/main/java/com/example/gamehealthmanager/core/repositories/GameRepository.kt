@@ -26,7 +26,7 @@ class GameRepository : GameService {
                 // Corregido: Solo pasamos los parámetros que tu GameAPI declara
                 val response = api.getGames(
                     platform = platform,
-                    genre = genre
+                    genre = if (genre.isEmpty()) null else genre // Si está vacío, enviamos null y Retrofit ignora el parámetro
                 )
 
                 // Evaluamos la respuesta de Retrofit
