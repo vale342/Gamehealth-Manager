@@ -4,20 +4,22 @@ import com.google.gson.annotations.SerializedName
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-// 1. GameResponse no necesita Parcelize porque no lo vas a pasar entre pantallas,
-// solo es un contenedor temporal para GSON.
+// El JSON de RAWG viene así: { "results": [ ... ] }
 data class GameResponse(
     @SerializedName("results") val results: List<Game>
 )
 
-// 2. Game SÍ necesita Parcelize y debe implementar Parcelable
 @Parcelize
 data class Game(
-    @SerializedName("id") val id: Int, // Cambiado a Int para mayor compatibilidad
-    @SerializedName("title") val titulo: String,
-    @SerializedName("genre") val genero: String,
-    @SerializedName("platform") val plataforma: String,
-    @SerializedName("thumbnail") val imagenUrl: String,
-    @SerializedName("release_date") val anioLanzamiento: String,
-    @SerializedName("short_description") val descripcion: String
+    @SerializedName("id") val id: Int,
+    @SerializedName("name") val titulo: String, // RAWG usa 'name', no 'title'
+    @SerializedName("background_image") val imagenUrl: String?, // RAWG usa 'background_image'
+    @SerializedName("genres") val generos: List<Genre>?, // RAWG devuelve una lista de objetos
+    @SerializedName("description_raw") val descripcion: String? // RAWG trae esto en el detalle
+): Parcelable
+
+// RAWG devuelve los géneros como una lista de objetos
+@Parcelize
+data class Genre(
+    @SerializedName("name") val name: String
 ): Parcelable

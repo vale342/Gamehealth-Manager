@@ -29,7 +29,9 @@ class GamesAdapter(
         fun bind(game: Game) {
             // Conectamos los datos del modelo Game con tus TextViews
             binding.tvTitle.text = game.titulo
-            binding.tvGenre.text = game.genero
+
+            // CORRECCIÓN: Ahora unimos la lista de géneros en un solo texto
+            binding.tvGenre.text = game.generos?.joinToString { it.name } ?: "No genre"
 
             // Cargamos la imagen usando Glide
             Glide.with(binding.ivCover.context)

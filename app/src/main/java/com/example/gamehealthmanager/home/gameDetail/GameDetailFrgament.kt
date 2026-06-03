@@ -44,11 +44,13 @@ class GameDetailFragment : Fragment() {
 
     private fun bindGameInfo() {
         binding.tvTitle.text = game.titulo
-        binding.tvGenre.text = "Genre: ${game.genero}"
 
-        // ¡Aquí es donde ocurre la magia!
-        // Conectamos el campo de tu clase Game con el TextView del XML
-        binding.tvDescription.text = game.descripcion
+        // CORRECCIÓN: Convertimos la lista de géneros en un texto separado por comas
+        val listaGeneros = game.generos?.joinToString { it.name } ?: "No genre"
+        binding.tvGenre.text = "Genre: $listaGeneros"
+
+        // CORRECCIÓN: Si la descripción viene nula, ponemos un texto por defecto
+        binding.tvDescription.text = game.descripcion ?: "No description available."
 
         Glide.with(binding.ivCover)
             .load(game.imagenUrl)

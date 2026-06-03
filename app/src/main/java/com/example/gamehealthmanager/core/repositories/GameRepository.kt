@@ -1,35 +1,28 @@
 package com.example.gamehealthmanager.core.repositories
 
 import com.example.gamehealthmanager.core.ResponseService
-import com.example.gamehealthmanager.core.model.Game
+import com.example.gamehealthmanager.core.model.GameResponse
 import com.example.gamehealthmanager.core.network.ApiClient
 import com.example.gamehealthmanager.core.network.GameService
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class GameRepository : GameService {
-    // Recuerda usar .gameApi con la minúscula inicial como lo corregimos en tu ApiClient
     private val api = ApiClient.GameApi
 
-    // 1. Añadimos todos los atributos faltantes en la firma de la función
+    // Ahora la función solo recibe los filtros, NO todos los campos del juego
     override suspend fun getGames(
-        id: String,
-        title: String,
-        genre: String,
-        platform: String,
-        imageUrl: String,
-        releaseYear: String,
-        description: String
-    ): ResponseService<List<Game>> =
+        genre: String?,
+        ordering: String
+    ): ResponseService<GameResponse> =
         withContext(Dispatchers.IO) {
             try {
-                // Corregido: Solo pasamos los parámetros que tu GameAPI declara
+                // Llamamos a la API con los filtros de RAWG
                 val response = api.getGames(
-                    platform = platform,
-                    genre = if (genre.isEmpty()) null else genre // Si está vacío, enviamos null y Retrofit ignora el parámetro
+                    genre = genre,
+                    ordering = ordering
                 )
 
-                // Evaluamos la respuesta de Retrofit
                 if (response.isSuccessful) {
                     val body = response.body()
                     if (body != null) {

@@ -53,10 +53,13 @@ class GamesFragment : Fragment() {
                         ResponseService.Loading -> {
                             communicator.manageLoader(true)
                         }
+                        // ... dentro de tu bloque cuando es Success:
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            Log.i("Games", "Games List: ${state.data}")
-                            adapter.submitList(state.data)
+                            // CAMBIO AQUÍ: Accedemos a .results para obtener la lista que necesita el adapter
+                            val listaDeJuegos = state.data.results
+                            Log.i("Games", "Games List: $listaDeJuegos")
+                            adapter.submitList(listaDeJuegos)
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
