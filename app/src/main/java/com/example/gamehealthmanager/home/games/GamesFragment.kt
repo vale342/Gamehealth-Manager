@@ -17,17 +17,20 @@ import com.example.gamehealthmanager.core.ResponseService
 import com.example.gamehealthmanager.databinding.FragmentGamesBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
 
 class GamesFragment : Fragment() {
-
     private var _binding: FragmentGamesBinding? = null
     private val binding get()= _binding!!
     private val viewModel by viewModels<GamesViewModel>()
     private lateinit var communicator: FragmentCommunicator
     private val adapter = GamesAdapter { game ->
+        val bundle = Bundle().apply {
+            putParcelable("game", game)
+        }
 
+        findNavController().navigate(R.id.action_gamesFragment_to_gameDetailFragment, bundle)
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
