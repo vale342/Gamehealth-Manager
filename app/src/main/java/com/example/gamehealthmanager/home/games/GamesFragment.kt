@@ -18,48 +18,51 @@ import com.example.gamehealthmanager.databinding.FragmentGamesBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import androidx.navigation.fragment.findNavController
+import androidx.appcompat.widget.SearchView
 
 class GamesFragment : Fragment() {
     private var _binding: FragmentGamesBinding? = null
-    private val binding get()= _binding!!
+    private val binding get() = _binding!!
     private val viewModel by viewModels<GamesViewModel>()
     private lateinit var communicator: FragmentCommunicator
     private val adapter = GamesAdapter { game ->
-        val bundle = Bundle().apply {
-            putParcelable("game", game)
-        }
-
+        val bundle = Bundle().apply { putParcelable("game", game) }
         findNavController().navigate(R.id.action_gamesFragment_to_gameDetailFragment, bundle)
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         _binding = FragmentGamesBinding.inflate(inflater, container, false)
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
         communicator = requireActivity() as FragmentCommunicator
         binding.rvGames.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGames.adapter = adapter
+
+        // ¡Asegúrate de tener importado androidx.appcompat.widget.SearchView!
+        binding.svGames.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let { viewModel.searchGames(it) }
+                return true
+            }
+            override fun onQueryTextChange(newText: String?): Boolean = false
+        })
+
         observeState()
-        //viewModel.loadGames()
-        return binding.root
     }
-    fun observeState(){
+
+    fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED){
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
                 viewModel.gameState.collect { state ->
-                    when(state){
-                        ResponseService.Loading -> {
-                            communicator.manageLoader(true)
-                        }
-                        // ... dentro de tu bloque cuando es Success:
+                    when (state) {
+                        ResponseService.Loading -> communicator.manageLoader(true)
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
-                            // CAMBIO AQUÍ: Accedemos a .results para obtener la lista que necesita el adapter
-                            val listaDeJuegos = state.data.results
-                            Log.i("Games", "Games List: $listaDeJuegos")
-                            adapter.submitList(listaDeJuegos)
+                            adapter.submitList(state.data.results)
                         }
                         is ResponseService.Error -> {
                             communicator.manageLoader(false)
@@ -70,5 +73,10 @@ class GamesFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

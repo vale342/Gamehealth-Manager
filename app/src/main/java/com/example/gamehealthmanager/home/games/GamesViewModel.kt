@@ -30,9 +30,18 @@ class GamesViewModel(
 
             // Ahora solo pasamos los filtros de RAWG
             _gameState.value = service.getGames(
+                query = null,
                 genre = null,
                 ordering = "-released"
             )
+        }
+    }
+
+    fun searchGames(query: String) {
+        viewModelScope.launch {
+            _gameState.value = ResponseService.Loading
+            // Llamamos al repositorio pasando el texto de búsqueda
+            _gameState.value = service.getGames(query = query)
         }
     }
 }

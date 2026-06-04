@@ -12,6 +12,7 @@ class GameRepository : GameService {
 
     // Ahora la función solo recibe los filtros, NO todos los campos del juego
     override suspend fun getGames(
+        query: String?,
         genre: String?,
         ordering: String
     ): ResponseService<GameResponse> =
@@ -19,6 +20,7 @@ class GameRepository : GameService {
             try {
                 // Llamamos a la API con los filtros de RAWG
                 val response = api.getGames(
+                    query = query,
                     genre = genre,
                     ordering = ordering
                 )
