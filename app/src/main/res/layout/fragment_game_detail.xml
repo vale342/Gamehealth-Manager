@@ -72,11 +72,68 @@
             app:layout_constraintTop_toBottomOf="@id/tvGenre"
             app:layout_constraintVertical_bias="0.0" />
 
+        <LinearLayout
+            android:id="@+id/llTrafficLight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:layout_constraintVertical_bias="0.0">
+
+            <FrameLayout
+                android:id="@+id/containerGreen"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_circle_default">
+
+                <ImageButton
+                    android:id="@+id/btnGreen"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shield_green" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/containerYellow"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_circle_default">
+
+                <ImageButton
+                    android:id="@+id/btnYellow"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shield_yellow" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/containerRed"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/shape_circle_default">
+
+                <ImageButton
+                    android:id="@+id/btnRed"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/selectableItemBackgroundBorderless"
+                    android:src="@drawable/ic_shield_red" />
+            </FrameLayout>
+        </LinearLayout>
+
         <ImageButton
             android:id="@+id/btnFavorite"
             android:layout_width="72dp"
             android:layout_height="72dp"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="32dp"
             android:layout_marginBottom="32dp"
             android:background="@null"
             android:scaleType="fitCenter"
@@ -85,7 +142,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tvDescription"
+            app:layout_constraintTop_toBottomOf="@id/llTrafficLight"
             app:layout_constraintVertical_bias="0.0" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
