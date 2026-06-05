@@ -1,4 +1,4 @@
-package com.example.gamehealthmanager.onboarding
+package com.example.gamehealthmanager.onboarding.resetPassword
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

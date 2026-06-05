@@ -4,21 +4,25 @@ import com.google.gson.annotations.SerializedName
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
-// El JSON de RAWG viene así: { "results": [ ... ] }
+// 1. Respuesta de la API (RAWG)
 data class GameResponse(
     @SerializedName("results") val results: List<Game>
 )
 
+// 2. Tu modelo Game ampliado para incluir el estado de salud
 @Parcelize
 data class Game(
     @SerializedName("id") val id: Int,
-    @SerializedName("name") val titulo: String, // RAWG usa 'name', no 'title'
-    @SerializedName("background_image") val imagenUrl: String?, // RAWG usa 'background_image'
-    @SerializedName("genres") val generos: List<Genre>?, // RAWG devuelve una lista de objetos
-    @SerializedName("description_raw") val descripcion: String? // RAWG trae esto en el detalle
+    @SerializedName("name") val titulo: String,
+    @SerializedName("background_image") val imagenUrl: String?,
+    @SerializedName("genres") val generos: List<Genre>?,
+    @SerializedName("description_raw") val descripcion: String?,
+
+    // Asigna el valor por defecto aquí mismo:
+    var healthRating: HealthRating = HealthRating.NONE
 ): Parcelable
 
-// RAWG devuelve los géneros como una lista de objetos
+// 3. Géneros
 @Parcelize
 data class Genre(
     @SerializedName("name") val name: String

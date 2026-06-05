@@ -17,17 +17,20 @@ class GameDetailViewModel : ViewModel() {
     private val auth = FirebaseAuth.getInstance()
 
     private val _isFavorite = MutableStateFlow(false)
-    val isFavorite: StateFlow<Boolean> = _isFavorite.asStateFlow()
+    val isFavorite = _isFavorite.asStateFlow()
 
     private val _gameDetail = MutableStateFlow<Game?>(null)
     val gameDetail: StateFlow<Game?> = _gameDetail.asStateFlow()
 
     // Lógica nueva de Firestore
-    fun saveRating(gameId: String, title: String, rating: String, onComplete: (Boolean) -> Unit) {
+    // En tu GameDetailViewModel.kt
+    fun saveRating(gameId: String, title: String, rating: String, imageUrl: String?, genre: String?, onComplete: (Boolean) -> Unit) {
         val userId = auth.currentUser?.uid ?: return
         val ratingData = hashMapOf(
             "rating" to rating,
-            "gameName" to title,
+            "titulo" to title, // Usamos 'titulo' para que coincida con tu adaptador
+            "imagen" to imageUrl,
+            "genero" to genre,
             "timestamp" to FieldValue.serverTimestamp()
         )
 
@@ -49,7 +52,31 @@ class GameDetailViewModel : ViewModel() {
             }
     }
 
-    fun toggleFavorite(game: Game) {
-        viewModelScope.launch { _isFavorite.value = !_isFavorite.value }
+    fun toggleFavorite(gameId: String) {
+        val userId = auth.currentUser?.uid ?: return
+
+        // NUEVA RUTA: users -> userId -> favorites -> gameId
+        val favRef = db.collection("users").document(userId).collection("favorites").document(gameId)
+
+        favRef.get().addOnSuccessListener { document ->
+            if (document.exists()) {
+                favRef.delete().addOnSuccessListener { _isFavorite.value = false }
+            } else {
+                // Solo guardamos la fecha o un campo simple, el ID del documento ya es el gameId
+                val favData = hashMapOf("timestamp" to FieldValue.serverTimestamp())
+                favRef.set(favData).addOnSuccessListener { _isFavorite.value = true }
+            }
+        }.addOnFailureListener {
+            // Manejo de error opcional
+        }
+    }
+
+    fun checkFavoriteStatus(gameId: String) {
+        val userId = auth.currentUser?.uid ?: return
+
+        // NUEVA RUTA para verificar
+        db.collection("users").document(userId).collection("favorites").document(gameId)
+            .get()
+            .addOnSuccessListener { _isFavorite.value = it.exists() }
     }
 }

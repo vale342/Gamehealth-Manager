@@ -19,13 +19,21 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import androidx.navigation.fragment.findNavController
 import androidx.appcompat.widget.SearchView
+import com.example.gamehealthmanager.core.model.HealthRating
 
 class GamesFragment : Fragment() {
     private var _binding: FragmentGamesBinding? = null
     private val binding get() = _binding!!
     private val viewModel by viewModels<GamesViewModel>()
     private lateinit var communicator: FragmentCommunicator
+    // En tu GamesFragment.kt, cambia el adaptador así:
     private val adapter = GamesAdapter { game ->
+        // ¡FUERZA LA INICIALIZACIÓN AQUÍ!
+        if (game.healthRating == null) {
+            game.healthRating = HealthRating.NONE
+        }
+
+        // Ahora navegamos con seguridad
         val bundle = Bundle().apply { putParcelable("game", game) }
         findNavController().navigate(R.id.action_gamesFragment_to_gameDetailFragment, bundle)
     }

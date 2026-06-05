@@ -15,6 +15,7 @@ import com.example.gamehealthmanager.core.model.Game
 import com.example.gamehealthmanager.databinding.FragmentGameDetailBinding
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
+import androidx.navigation.fragment.findNavController
 
 class GameDetailFragment : Fragment() {
     private var _binding: FragmentGameDetailBinding? = null
@@ -44,6 +45,8 @@ class GameDetailFragment : Fragment() {
             rating?.let { updateTrafficLightVisuals(it) }
         }
 
+        viewModel.checkFavoriteStatus(game.id.toString())
+
         binding.btnGreen.setOnClickListener { handleRatingClick("GREEN", it) }
         binding.btnYellow.setOnClickListener { handleRatingClick("YELLOW", it) }
         binding.btnRed.setOnClickListener { handleRatingClick("RED", it) }
@@ -53,7 +56,18 @@ class GameDetailFragment : Fragment() {
         animateSelectedButton(view)
         updateTrafficLightVisuals(rating)
 
-        viewModel.saveRating(game.id.toString(), game.titulo, rating) { success ->
+        // Preparamos el texto del género igual que lo haces para la vista
+        val generoText = game.generos?.joinToString { it.name } ?: "Género desconocido"
+
+        // Ahora enviamos todos los parámetros que pide el ViewModel:
+        // id, titulo, rating, imagenUrl, genero
+        viewModel.saveRating(
+            game.id.toString(),
+            game.titulo,
+            rating,
+            game.imagenUrl,
+            generoText
+        ) { success ->
             if (success) Snackbar.make(binding.root, "Diagnóstico guardado!", Snackbar.LENGTH_SHORT).show()
         }
     }
@@ -85,13 +99,22 @@ class GameDetailFragment : Fragment() {
     private fun bindGameInfo() {
         binding.tvTitle.text = game.titulo
         binding.tvGenre.text = "Genre: ${game.generos?.joinToString { it.name } ?: "No genre"}"
-        binding.tvDescription.text = game.descripcion ?: "No description available."
+        // Si usas HTML, puedes usar esto:
+        binding.tvDescription.text = android.text.Html.fromHtml(game.descripcion ?: "No description available.", android.text.Html.FROM_HTML_MODE_COMPACT)
+
         Glide.with(binding.ivCover).load(game.imagenUrl).centerCrop().into(binding.ivCover)
     }
 
     private fun setupListeners() {
-        binding.btnFavorite.setOnClickListener { viewModel.toggleFavorite(game) }
-        binding.btnClose.setOnClickListener { requireActivity().onBackPressedDispatcher.onBackPressed() }
+        binding.btnFavorite.setOnClickListener {
+            // Esto es todo lo que necesitas. Al ser un StateFlow,
+            // el fragmento "escucha" el cambio y actualiza la estrella solo.
+            viewModel.toggleFavorite(game.id.toString())
+        }
+
+        binding.btnClose.setOnClickListener {
+            findNavController().navigateUp() // Es más limpio que llamar al dispatcher
+        }
     }
 
     private fun observeViewModel() {

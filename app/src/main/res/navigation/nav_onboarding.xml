@@ -22,10 +22,18 @@
         <action
             android:id="@+id/action_loginFragment_to_registerFragment"
             app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_recuperarContraFragment"
+            app:destination="@id/recuperarContraFragment" />
     </fragment>
     <fragment
         android:id="@+id/personalInfoFragment"
         android:name="com.example.gamehealthmanager.onboarding.personal.PersonalInfoFragment"
         android:label="fragment_personal_info"
         tools:layout="@layout/fragment_personal_info" />
+    <fragment
+        android:id="@+id/recuperarContraFragment"
+        android:name="com.example.gamehealthmanager.onboarding.resetPassword.recuperarContraFragment"
+        android:label="fragment_recuperar_contra"
+        tools:layout="@layout/fragment_recuperar_contra" />
 </navigation>

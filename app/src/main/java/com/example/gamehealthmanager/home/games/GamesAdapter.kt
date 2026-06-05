@@ -2,11 +2,14 @@ package com.example.gamehealthmanager.home.games
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.example.gamehealthmanager.R
 import com.example.gamehealthmanager.core.model.Game
+import com.example.gamehealthmanager.core.model.HealthRating
 import com.example.gamehealthmanager.databinding.ItemGameBinding
 
 class GamesAdapter(
@@ -26,14 +29,25 @@ class GamesAdapter(
         private val binding: ItemGameBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
+        // Dentro de GamesAdapter.kt, en el método bind:
         fun bind(game: Game) {
-            // Conectamos los datos del modelo Game con tus TextViews
             binding.tvTitle.text = game.titulo
-
-            // CORRECCIÓN: Ahora unimos la lista de géneros en un solo texto
             binding.tvGenre.text = game.generos?.joinToString { it.name } ?: "No genre"
 
-            // Cargamos la imagen usando Glide
+            // Protección: Si game.healthRating es null, usamos NONE
+            val rating = game.healthRating ?: HealthRating.NONE
+
+            val colorRes = when (rating) {
+                HealthRating.GREEN -> R.color.green_status
+                HealthRating.YELLOW -> R.color.yellow_status
+                HealthRating.RED -> R.color.red_status
+                HealthRating.NONE -> R.color.disabled
+            }
+            // ... resto del código
+
+
+            binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, colorRes))
+
             Glide.with(binding.ivCover.context)
                 .load(game.imagenUrl)
                 .centerCrop()
@@ -47,10 +61,8 @@ class GamesAdapter(
 
     companion object {
         private val DIFF = object : DiffUtil.ItemCallback<Game>() {
-            override fun areItemsTheSame(oldItem: Game, newItem: Game) =
-                oldItem.id == newItem.id
-            override fun areContentsTheSame(oldItem: Game, newItem: Game) =
-                oldItem == newItem
+            override fun areItemsTheSame(oldItem: Game, newItem: Game) = oldItem.id == newItem.id
+            override fun areContentsTheSame(oldItem: Game, newItem: Game) = oldItem == newItem
         }
     }
 }
