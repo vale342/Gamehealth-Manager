@@ -68,33 +68,67 @@ class LoginFragment : Fragment() {
             findNavController()
                 .navigate(R.id.action_loginFragment_to_registerFragment)
         }
+        binding.restorePasswordText?.setOnClickListener {
+            val email = binding.emailTiet.text.toString().trim()
+            viewModel.requestPasswordReset(email)
+        }
     }
 
     private fun observeState() {
         viewLifecycleOwner.lifecycleScope.launch {
             repeatOnLifecycle(Lifecycle.State.STARTED) {
-                viewModel.signInState.collect { state ->
-                    when (state) {
-                        is ResponseService.Loading -> {
-                            communicator.manageLoader(true)
-                            binding.signInButton.isEnabled = false
+                launch{
+                    viewModel.signInState.collect { state ->
+                        when (state) {
+                            is ResponseService.Loading -> {
+                                communicator.manageLoader(true)
+                                binding.signInButton.isEnabled = false
+                            }
+                            is ResponseService.Success -> {
+                                communicator.manageLoader(false)
+                                val intent = Intent(requireContext(), HomeActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                            }
+                            is ResponseService.Error -> {
+                                communicator.manageLoader(false)
+                                binding.signInButton.isEnabled = true
+                                Snackbar.make(binding.root, state.error,
+                                    Snackbar.LENGTH_LONG).show()
+                            }
+                            null -> Unit
                         }
-                        is ResponseService.Success -> {
-                            communicator.manageLoader(false)
-                            val intent = Intent(requireContext(), HomeActivity::class.java)
-                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-                            startActivity(intent)
+                    }
+                }
+                // NUEVO: Observar la recuperación de contraseña
+                launch {
+                    viewModel.resetState.collect { state ->
+                        when (state) {
+                            is ResponseService.Loading -> {
+                                communicator.manageLoader(true)
+                            }
+                            is ResponseService.Success -> {
+                                communicator.manageLoader(false)
+                                Snackbar.make(
+                                    binding.root,
+                                    "Correo enviado. Revisa tu bandeja de entrada o SPAM.",
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            is ResponseService.Error -> {
+                                communicator.manageLoader(false)
+                                Snackbar.make(binding.root, state.error, Snackbar.LENGTH_LONG).show()
+                            }
+                            null -> Unit
                         }
-                        is ResponseService.Error -> {
-                            communicator.manageLoader(false)
-                            binding.signInButton.isEnabled = true
-                            Snackbar.make(binding.root, state.error,
-                                Snackbar.LENGTH_LONG).show()
-                        }
-                        null -> Unit
                     }
                 }
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
