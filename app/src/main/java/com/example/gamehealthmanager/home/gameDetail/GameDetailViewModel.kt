@@ -52,22 +52,27 @@ class GameDetailViewModel : ViewModel() {
             }
     }
 
-    fun toggleFavorite(gameId: String) {
+    fun toggleFavorite(gameId: String, title: String, imageUrl: String?, genre: String?) {
         val userId = auth.currentUser?.uid ?: return
 
-        // NUEVA RUTA: users -> userId -> favorites -> gameId
+        // RUTA: users -> userId -> favorites -> gameId
         val favRef = db.collection("users").document(userId).collection("favorites").document(gameId)
 
         favRef.get().addOnSuccessListener { document ->
             if (document.exists()) {
                 favRef.delete().addOnSuccessListener { _isFavorite.value = false }
             } else {
-                // Solo guardamos la fecha o un campo simple, el ID del documento ya es el gameId
-                val favData = hashMapOf("timestamp" to FieldValue.serverTimestamp())
+                // AQUÍ ESTÁ EL ARREGLO: Agregamos el "id" al mapa de datos
+                // AQUÍ ESTÁ LA MAGIA: Nombres y tipos idénticos a tu Game.kt
+                val favData = hashMapOf(
+                    "id" to gameId.toInt(),
+                    "titulo" to title,
+                    "imagenUrl" to imageUrl, // Coincide exacto con la variable
+                    "generos" to listOf(hashMapOf("name" to genre)), // Lo convertimos en la Lista que espera tu app
+                    "timestamp" to FieldValue.serverTimestamp()
+                )
                 favRef.set(favData).addOnSuccessListener { _isFavorite.value = true }
             }
-        }.addOnFailureListener {
-            // Manejo de error opcional
         }
     }
 

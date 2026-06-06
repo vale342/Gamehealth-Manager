@@ -107,13 +107,26 @@ class GameDetailFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnFavorite.setOnClickListener {
-            // Esto es todo lo que necesitas. Al ser un StateFlow,
-            // el fragmento "escucha" el cambio y actualiza la estrella solo.
-            viewModel.toggleFavorite(game.id.toString())
+            // 1. Preparamos los textos seguros
+            val generoText = game.generos?.joinToString { it.name } ?: "Sin género"
+
+            // 2. EL TRUCO: Si la imagen es null, mandamos un texto vacío ("")
+            val imagenSegura = game.imagenUrl ?: ""
+
+            // 3. Guardamos en Firebase
+            viewModel.toggleFavorite(
+                gameId = game.id.toString(),
+                title = game.titulo,
+                imageUrl = imagenSegura,
+                genre = generoText
+            )
+
+            // 4. Mostramos un mensajito para confirmar que le dimos clic
+            Snackbar.make(binding.root, "Favorito actualizado", Snackbar.LENGTH_SHORT).show()
         }
 
         binding.btnClose.setOnClickListener {
-            findNavController().navigateUp() // Es más limpio que llamar al dispatcher
+            findNavController().navigateUp()
         }
     }
 

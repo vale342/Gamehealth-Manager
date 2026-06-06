@@ -29,24 +29,26 @@ class GamesAdapter(
         private val binding: ItemGameBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
-        // Dentro de GamesAdapter.kt, en el método bind:
         fun bind(game: Game) {
             binding.tvTitle.text = game.titulo
             binding.tvGenre.text = game.generos?.joinToString { it.name } ?: "No genre"
 
-            // Protección: Si game.healthRating es null, usamos NONE
             val rating = game.healthRating ?: HealthRating.NONE
 
-            val colorRes = when (rating) {
-                HealthRating.GREEN -> R.color.green_status
-                HealthRating.YELLOW -> R.color.yellow_status
-                HealthRating.RED -> R.color.red_status
-                HealthRating.NONE -> R.color.disabled
+            // Modificación aquí: Verificamos si tiene o no semáforo
+            if (rating == HealthRating.NONE) {
+                // Si no tiene semáforo (pantalla Home), forzamos el fondo oscuro
+                binding.root.setBackgroundColor(android.graphics.Color.parseColor("#1A1A1A"))
+            } else {
+                // Si sí tiene semáforo (pantalla Favoritos/Ratings), le ponemos su color
+                val colorRes = when (rating) {
+                    HealthRating.GREEN -> R.color.green_status
+                    HealthRating.YELLOW -> R.color.yellow_status
+                    HealthRating.RED -> R.color.red_status
+                    else -> R.color.disabled
+                }
+                binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, colorRes))
             }
-            // ... resto del código
-
-
-            binding.root.setBackgroundColor(ContextCompat.getColor(binding.root.context, colorRes))
 
             Glide.with(binding.ivCover.context)
                 .load(game.imagenUrl)
