@@ -15,4 +15,9 @@
     <color name="green_status">#4CAF50</color>
     <color name="yellow_status">#FFC107</color>
     <color name="red_status">#F44336</color>
+
+    <color name="purple_primary">#9C27B0</color>
+    <color name="bg_dark_purple">#120822</color>
+    <color name="card_surface_purple">#23153C</color>
+    <color name="text_gray_purple">#B3A2C7</color>
 </resources>
