@@ -1,5 +1,6 @@
 package com.example.gamehealthmanager.onboarding.signup
 
+import android.util.Patterns // Importante para validar el formato del correo
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.gamehealthmanager.core.AuthRepository
@@ -16,10 +17,19 @@ class RegisterViewModel: ViewModel() {
     private val _registerState = MutableStateFlow<ResponseService<FirebaseUser>?>(null)
     val registerState: StateFlow<ResponseService<FirebaseUser>?> = _registerState.asStateFlow()
 
+    // --- Validación Real ---
+    fun validateEmail(email: String): String? {
+        if (email.isBlank()) return "El correo es requerido"
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches())
+            return "Correo inválido"
+        return null
+    }
 
-    // --- Validación ---
-    fun validateEmail(email: String): String? { /* igual que SignInViewModel */ return null }
-    fun validatePassword(password: String): String? { /* igual */ return null }
+    fun validatePassword(password: String): String? {
+        if (password.isBlank()) return "La contraseña es requerida"
+        if (password.length < 8) return "Mínimo 8 caracteres"
+        return null
+    }
 
     fun validateConfirmPassword(password: String, confirm: String): String? {
         if (confirm.isBlank()) return "Confirma tu contraseña"
