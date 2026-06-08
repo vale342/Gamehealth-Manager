@@ -23,7 +23,11 @@
         android:id="@+id/gameListsFragment"
         android:name="com.example.gamehealthmanager.home.gameLists.GameListFragment"
         android:label="fragment_game_list"
-        tools:layout="@layout/fragment_game_lists"/>
+        tools:layout="@layout/fragment_game_lists">
+        <action
+            android:id="@+id/action_gameListsFragment_to_gameDetailFragment"
+            app:destination="@id/gameDetailFragment" />
+    </fragment>
     <fragment
         android:id="@+id/gameDetailFragment"
         android:name="com.example.gamehealthmanager.home.gameDetail.GameDetailFragment"
