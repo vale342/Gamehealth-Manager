@@ -6,6 +6,9 @@ import kotlinx.parcelize.Parcelize
 
 // 1. Respuesta de la API (RAWG)
 data class GameResponse(
+    @SerializedName("count") val count: Int,
+    @SerializedName("next") val next: String?,
+    @SerializedName("previous") val previous: String?,
     @SerializedName("results") val results: List<Game>
 )
 

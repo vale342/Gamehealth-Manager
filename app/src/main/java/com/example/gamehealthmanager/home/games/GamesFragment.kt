@@ -11,6 +11,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView // <-- IMPORTANTE: Asegúrate de que esto esté importado
 import com.example.gamehealthmanager.R
 import com.example.gamehealthmanager.core.FragmentCommunicator
 import com.example.gamehealthmanager.core.ResponseService
@@ -26,7 +27,7 @@ class GamesFragment : Fragment() {
     private val binding get() = _binding!!
     private val viewModel by viewModels<GamesViewModel>()
     private lateinit var communicator: FragmentCommunicator
-    // En tu GamesFragment.kt, cambia el adaptador así:
+
     private val adapter = GamesAdapter { game ->
         // ¡FUERZA LA INICIALIZACIÓN AQUÍ!
         if (game.healthRating == null) {
@@ -50,6 +51,21 @@ class GamesFragment : Fragment() {
         binding.rvGames.layoutManager = LinearLayoutManager(requireContext())
         binding.rvGames.adapter = adapter
 
+        // --- NUEVO: CÓDIGO DE PAGINACIÓN (INFINITE SCROLL) ---
+        binding.rvGames.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                super.onScrolled(recyclerView, dx, dy)
+
+                // canScrollVertically(1) revisa si aún hay espacio hacia abajo.
+                // Si regresa false, significa que el usuario tocó el fondo de la lista.
+                if (!recyclerView.canScrollVertically(1)) {
+                    // ¡Llegamos al final! Pedimos la siguiente página
+                    viewModel.loadGames()
+                }
+            }
+        })
+        // -----------------------------------------------------
+
         // ¡Asegúrate de tener importado androidx.appcompat.widget.SearchView!
         binding.svGames.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
@@ -70,6 +86,8 @@ class GamesFragment : Fragment() {
                         ResponseService.Loading -> communicator.manageLoader(true)
                         is ResponseService.Success -> {
                             communicator.manageLoader(false)
+                            // adapter.submitList ya se encarga de actualizar la pantalla
+                            // suavemente cuando llegan los nuevos 30 juegos
                             adapter.submitList(state.data.results)
                         }
                         is ResponseService.Error -> {
