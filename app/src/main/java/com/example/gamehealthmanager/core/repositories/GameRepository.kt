@@ -10,19 +10,23 @@ import kotlinx.coroutines.withContext
 class GameRepository : GameService {
     private val api = ApiClient.GameApi
 
-    // Ahora la función solo recibe los filtros, NO todos los campos del juego
+    // Ahora la función recibe los filtros y los parámetros de paginación
     override suspend fun getGames(
         query: String?,
         genre: String?,
-        ordering: String
+        ordering: String,
+        page: Int,        // <-- NUEVO: Recibe la página
+        pageSize: Int     // <-- NUEVO: Recibe el tamaño de la página
     ): ResponseService<GameResponse> =
         withContext(Dispatchers.IO) {
             try {
-                // Llamamos a la API con los filtros de RAWG
+                // Llamamos a la API con todos los parámetros
                 val response = api.getGames(
                     query = query,
                     genre = genre,
-                    ordering = ordering
+                    ordering = ordering,
+                    page = page,          // <-- NUEVO: Se lo pasa a Retrofit
+                    pageSize = pageSize   // <-- NUEVO: Se lo pasa a Retrofit
                 )
 
                 if (response.isSuccessful) {

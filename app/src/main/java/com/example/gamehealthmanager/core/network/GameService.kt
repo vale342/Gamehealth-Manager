@@ -7,6 +7,8 @@ interface GameService {
     suspend fun getGames(
         query: String? = null,
         genre: String? = null,
-        ordering: String = "-released"
+        ordering: String = "-released",
+        page: Int = 1,
+        pageSize: Int = 20
     ): ResponseService<GameResponse>
 }
