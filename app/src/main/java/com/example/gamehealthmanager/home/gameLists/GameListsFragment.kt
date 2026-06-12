@@ -59,8 +59,7 @@ class GameListFragment : Fragment(R.layout.fragment_game_lists) {
                         val mappedFavorites = firebaseList.map { mapa ->
 
                             val tituloStr = mapa["titulo"]?.toString() ?: mapa["title"]?.toString() ?: mapa["name"]?.toString() ?: "Sin título"
-                            val imagenStr = mapa["imagenUrl"]?.toString() ?: mapa["imageUrl"]?.toString() ?: mapa["background_image"]?.toString() ?: ""
-
+                            val imagenStr = mapa["imagenUrl"]?.toString() ?: mapa["imageUrl"]?.toString() ?: mapa["background_image"]?.toString() ?: mapa["imagen"]?.toString() ?: mapa["image"]?.toString() ?: ""
                             // Obtenemos el género (sucio o limpio)
                             val generoCrudo = mapa["generos"]?.toString() ?: mapa["genero"]?.toString() ?: mapa["genre"]?.toString() ?: "Sin género"
 

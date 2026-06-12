@@ -39,7 +39,7 @@ class AuthRepository(): Authentication {
             result.user?.let { ResponseService.Success(it) }
                 ?: ResponseService.Error("No se pudo crear el usuario")
         } catch (e: FirebaseAuthUserCollisionException) {
-            ResponseService.Error("Este correo ya esta registrado, intenta ccn otro")
+            ResponseService.Error("Este correo ya esta registrado, intenta con otro")
         } catch (e: FirebaseAuthWeakPasswordException) {
             ResponseService.Error("La contraseña es muy debil")
         } catch (e: Exception) {
